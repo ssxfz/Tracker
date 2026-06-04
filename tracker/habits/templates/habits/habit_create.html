@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create habit</title>
-</head>
-<body>
-    <h1>Create habit</h1>
+{% extends "base.html" %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+{% block title %}Create Habit{% endblock %}
 
-        <button type="submit">Save</button>
-    </form>
+{% block content %}
 
-    <br>
+<div class="card">
+    <div class="card-body">
+        <h1 class="mb-4">Create habit</h1>
 
-    <a href="{% url 'habit_list' %}">Go back</a>
+        <form method="post">
+            {% csrf_token %}
 
-</body>
-</html>
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+
+            <a href="{% url 'habit_list' %}" class="btn btn-secondary">
+                Go back
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

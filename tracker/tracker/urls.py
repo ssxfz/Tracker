@@ -22,5 +22,6 @@ urlpatterns = [
     path('', lambda request: redirect('/habits/')),
     path('admin/', admin.site.urls),
     path('habits/', include('habits.urls')),
+    path("dashboard/", include("dashboard.urls")),
     path('', include('django.contrib.auth.urls')),
 ]
