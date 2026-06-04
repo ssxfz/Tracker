@@ -11,7 +11,9 @@ from .forms import HabitForm
 def habit_list(request):
     habits = Habit.objects.filter(user=request.user)
 
-    return render(request, 'habits/habits.html', {'habits': habits})
+    return render(request, "habits/habit_list.html", {
+        "habits": habits
+    })
 
 @login_required
 def habit_create(request):
@@ -23,11 +25,11 @@ def habit_create(request):
             habit.user = request.user
             habit.save()
 
-            return redirect('habits_list')
-        else:
-            form = HabitForm()
+            return redirect('habit_list')
+    else:
+        form = HabitForm()
 
-        return render(request, 'habits/habit_create.html', {'form': form})
+    return render(request, 'habits/habit_create.html', {'form': form})
 
 @login_required
 def habit_done(request, habit_id):
@@ -39,7 +41,7 @@ def habit_done(request, habit_id):
         habit.streak += 1
         habit.last_done_date = today
         habit.save()
-    return redirect('habits_list')
+    return redirect('habit_list')
 
 @login_required
 def habit_delete(request, habit_id):
@@ -47,6 +49,6 @@ def habit_delete(request, habit_id):
 
     if request.method == "POST":
         habit.delete()
-        return redirect('habits_list')
+        return redirect('habit_list')
 
     return render(request, 'habits/habit_confirm_delete.html', {'habit': habit})

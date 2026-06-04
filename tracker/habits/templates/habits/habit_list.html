@@ -7,22 +7,22 @@
 <body>
     <h1>My habits</h1>
 
-    <a href="{% url 'habit_create' %}"></a>
+    <a href="{% url 'habit_create' %}">Create habit</a>
 
     <hr>
 
     {% for habit in habits %}
         <div>
-            <h3>{{habit.title}}</h3>
-            <p>{{habit.description}}</p>
-            <p>Streak: {{habit.streak}}</p>
-            <p>Last done: {{habit.last_done_date}}</p>
+            <h3>{{ habit.title }}</h3>
+            <p>{{ habit.description }}</p>
+            <p>Streak: {{ habit.streak }}</p>
+            <p>Last done: {{ habit.last_done_date }}</p>
 
             <a href="{% url 'habit_done' habit.id %}">Done today</a>
 
-            <form method="post" action="{% url 'habit_delete' habit_id %}">
-                  {% csrf_token %}
-                  <button type="submit">Delete</button>
+            <form method="post" action="{% url 'habit_delete' habit.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
             </form>
         </div>
 
