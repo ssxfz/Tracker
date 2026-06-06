@@ -1,0 +1,467 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --dur: 0.55s;
+
+    --dark-bg: #15191d;
+    --dark-panel: #050505;
+    --dark-panel-soft: #0f1115;
+    --dark-text: #f1f5f9;
+    --dark-muted: #9ca3af;
+
+    --light-bg: #f3f4f6;
+    --light-panel: #ffffff;
+    --light-panel-soft: #f8fafc;
+    --light-text: #111827;
+    --light-muted: #6b7280;
+
+    --accent: #4169f5;
+}
+
+/* =========================
+   BASE THEME
+========================= */
+
+body {
+    min-height: 100vh;
+    transition: background-color var(--dur), color var(--dur);
+}
+
+body.theme-dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+body.theme-light {
+    background: var(--light-bg);
+    color: var(--light-text);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.app-navbar {
+    border-bottom: 1px solid transparent;
+    transition: background-color var(--dur), border-color var(--dur);
+}
+
+body.theme-dark .app-navbar {
+    background: #0b0f14;
+    border-color: #243041;
+}
+
+body.theme-light .app-navbar {
+    background: #ffffff;
+    border-color: #d1d5db;
+}
+
+body.theme-dark .navbar-brand,
+body.theme-dark .nav-link,
+body.theme-dark .navbar-text {
+    color: #f1f5f9 !important;
+}
+
+body.theme-light .navbar-brand,
+body.theme-light .nav-link,
+body.theme-light .navbar-text {
+    color: #111827 !important;
+}
+
+body.theme-dark .nav-link:hover {
+    color: #ffffff !important;
+}
+
+body.theme-light .nav-link:hover {
+    color: #2563eb !important;
+}
+
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+body.theme-dark .btn-outline-light {
+    color: #f8fafc;
+    border-color: #f8fafc;
+    background: transparent;
+}
+
+body.theme-dark .btn-outline-light:hover {
+    color: #0b0f14;
+    background: #f8fafc;
+}
+
+body.theme-light .btn-outline-light {
+    color: #111827;
+    border-color: #111827;
+    background: transparent;
+}
+
+body.theme-light .btn-outline-light:hover {
+    color: #ffffff;
+    background: #111827;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+body.theme-dark .card,
+body.theme-dark .filter-card {
+    background: var(--dark-panel);
+    color: var(--dark-text);
+    border-color: #1f2937;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+body.theme-light .card,
+body.theme-light .filter-card {
+    background: var(--light-panel);
+    color: var(--light-text);
+    border-color: #e5e7eb;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================
+   FORMS
+========================= */
+
+body.theme-dark .form-control,
+body.theme-dark .form-select {
+    background: #0f172a;
+    color: #f9fafb;
+    border-color: #374151;
+}
+
+body.theme-light .form-control,
+body.theme-light .form-select {
+    background: #ffffff;
+    color: #111827;
+    border-color: #d1d5db;
+}
+
+body.theme-dark .form-control::placeholder {
+    color: #64748b;
+}
+
+body.theme-light .form-control::placeholder {
+    color: #9ca3af;
+}
+
+body.theme-dark .form-control:focus,
+body.theme-dark .form-select:focus {
+    background: #0f172a;
+    color: #f9fafb;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(65, 105, 245, 0.25);
+}
+
+body.theme-light .form-control:focus,
+body.theme-light .form-select:focus {
+    background: #ffffff;
+    color: #111827;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(65, 105, 245, 0.2);
+}
+
+/* =========================
+   ALERTS
+========================= */
+
+body.theme-dark .alert-info {
+    background: #064e5a;
+    color: #dffafe;
+    border-color: #0891b2;
+}
+
+body.theme-light .alert-info {
+    background: #dbeafe;
+    color: #1e3a8a;
+    border-color: #93c5fd;
+}
+
+/* =========================
+   SCHEDULE PAGE
+========================= */
+
+.schedule-title {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.date-range {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 30px auto;
+    padding: 8px 22px;
+    background: var(--accent);
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.filter-card {
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 35px;
+}
+
+.schedule-wrapper {
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: 140px repeat(5, 220px);
+    grid-auto-rows: 90px;
+    gap: 8px;
+    min-width: 1240px;
+}
+
+.schedule-cell {
+    border: 1px solid;
+    border-radius: 12px;
+    padding: 12px;
+    transition: background-color var(--dur), color var(--dur), border-color var(--dur);
+}
+
+body.theme-dark .schedule-cell {
+    background: var(--dark-panel);
+    color: var(--dark-text);
+    border-color: #1f2937;
+}
+
+body.theme-dark .schedule-header,
+body.theme-dark .day-cell {
+    background: #050505;
+    color: #d1d5db;
+}
+
+body.theme-light .schedule-cell {
+    background: #ffffff;
+    color: #111827;
+    border-color: #dee2e6;
+}
+
+body.theme-light .schedule-header,
+body.theme-light .day-cell {
+    background: #f8f9fa;
+    color: #111827;
+}
+
+.schedule-header {
+    font-weight: 700;
+    text-align: center;
+}
+
+.day-cell {
+    font-weight: 700;
+    text-align: center;
+}
+
+.day-cell small {
+    display: block;
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.lesson-card {
+    background: var(--accent);
+    color: white;
+    border-radius: 12px;
+    padding: 14px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.lesson-card h5 {
+    margin: 0 0 6px 0;
+    font-weight: 700;
+}
+
+.lesson-card p {
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* =========================
+   THEME SWITCH
+========================= */
+
+.theme-switch-form {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 12px;
+    position: relative;
+}
+
+.sr {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    color: transparent;
+    width: 1px;
+    height: 1px;
+}
+
+.theme-toggle {
+    border-radius: 0.75em;
+    cursor: pointer;
+    width: 3em;
+    height: 1.5em;
+    position: relative;
+    overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: transparent;
+    transition: background-color var(--dur), color var(--dur);
+}
+
+/* Темна тема: світлий корпус, чорний кружок */
+body.theme-dark .theme-toggle {
+    background: #e5e7eb;
+    color: #e5e7eb;
+}
+
+/* Світла тема: темний корпус, білий кружок */
+body.theme-light .theme-toggle {
+    background: #111827;
+    color: #111827;
+}
+
+.theme-toggle::before,
+.theme-toggle::after {
+    border-radius: 50%;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0.25em;
+    left: 0.25em;
+    width: 1em;
+    height: 1em;
+    transition: transform var(--dur), background-color var(--dur);
+}
+
+/* Кружок у темній темі */
+body.theme-dark .theme-toggle::before,
+body.theme-dark .theme-toggle::after {
+    background: #050505;
+}
+
+/* Кружок у світлій темі */
+body.theme-light .theme-toggle::before,
+body.theme-light .theme-toggle::after {
+    background: #ffffff;
+}
+
+.theme-toggle::before,
+.theme-toggle:checked::after {
+    transition-delay: 0s;
+}
+
+.theme-toggle:checked::before,
+.theme-toggle::after {
+    transition-delay: calc(var(--dur) * 0.75);
+    transition-timing-function: cubic-bezier(0.3, 1.6, 0.5, 0.7);
+}
+
+.theme-toggle::before {
+    transform: translateX(-1.5em);
+}
+
+.theme-toggle:checked::before {
+    transform: translateX(1.5em);
+}
+
+.theme-toggle:checked::after {
+    transform: translateX(3em);
+}
+
+/* =========================
+   VIEW TRANSITION THEME WIPE
+   Працює нормально у Chrome/Edge.
+   У Firefox тема просто перемкнеться без wipe.
+========================= */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.65s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+/* Коли йдемо у світлу тему: нова тема відкривається зліва направо */
+body.to-light::view-transition-new(root) {
+    animation-name: reveal-light;
+}
+
+/* Коли йдемо у темну тему: нова тема відкривається справа наліво */
+body.to-dark::view-transition-new(root) {
+    animation-name: reveal-dark;
+}
+
+/* Стара тема не анімується, вона просто залишається під новою */
+body.to-light::view-transition-old(root),
+body.to-dark::view-transition-old(root) {
+    animation: none;
+}
+
+@keyframes reveal-light {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes reveal-dark {
+    from {
+        clip-path: inset(0 0 0 100%);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .ms-auto {
+        margin-left: 0 !important;
+    }
+
+    .filter-card {
+        padding: 18px;
+    }
+
+    .schedule-grid {
+        grid-template-columns: 120px repeat(5, 190px);
+        min-width: 1070px;
+    }
+
+    .date-range {
+        font-size: 16px;
+    }
+}

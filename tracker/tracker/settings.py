@@ -77,6 +77,12 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 WSGI_APPLICATION = 'tracker.wsgi.application'
 
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
