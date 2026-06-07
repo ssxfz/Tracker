@@ -10,34 +10,43 @@
 </div>
 
 {% for habit in habits %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <h3 class="card-title">{{ habit.title }}</h3>
+    <div class="habit-card">
+        <div class="habit-card-glow"></div>
 
-            {% if habit.description %}
-                <p class="card-text">{{ habit.description }}</p>
-            {% else %}
-                <p class="text-muted">No description</p>
-            {% endif %}
+        <div class="habit-card-content">
+            <div class="habit-card-header">
+                <div>
+                    <h3>{{ habit.title }}</h3>
 
-            <p class="mb-1">
-                <strong>Streak:</strong> {{ habit.streak }}
-            </p>
+                    {% if habit.description %}
+                        <p class="habit-description">{{ habit.description }}</p>
+                    {% else %}
+                        <p class="habit-description text-muted">No description</p>
+                    {% endif %}
+                </div>
 
-            <p class="mb-3">
-                <strong>Last done:</strong> {{ habit.last_done_date }}
-            </p>
+                <div class="habit-streak-badge">
+                    🔥 {{ habit.streak }}
+                </div>
+            </div>
 
-            <a href="{% url 'habit_done' habit.id %}" class="btn btn-success btn-sm">
-                Done today
-            </a>
+            <div class="habit-info">
+                <p><strong>Streak:</strong> {{ habit.streak }}</p>
+                <p><strong>Last done:</strong> {{ habit.last_done_date }}</p>
+            </div>
 
-            <form method="post" action="{% url 'habit_delete' habit.id %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-sm">
-                    Delete
-                </button>
-            </form>
+            <div class="habit-actions">
+                <a href="{% url 'habit_done' habit.id %}" class="btn btn-success btn-sm">
+                    Done today
+                </a>
+
+                <form method="post" action="{% url 'habit_delete' habit.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 {% empty %}

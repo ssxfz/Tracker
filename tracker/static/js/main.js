@@ -6,37 +6,31 @@ function setTheme(theme) {
     localStorage.setItem("siteTheme", theme);
 }
 
-function animateThemeChange(nextTheme) {
-    const wipeClass = nextTheme === "light"
-        ? "theme-wipe-to-light"
-        : "theme-wipe-to-dark";
+function changeTheme(nextTheme) {
+    const directionClass = nextTheme === "light" ? "to-light" : "to-dark";
 
-    document.body.classList.remove(
-        "theme-wipe-to-light",
-        "theme-wipe-to-dark",
-        "theme-wipe-reset"
-    );
+    document.documentElement.classList.remove("to-light", "to-dark");
+    document.documentElement.classList.add(directionClass);
 
-    // 1. Запускаємо лінію переходу
-    document.body.classList.add(wipeClass);
-
-    // 2. Майже одразу міняємо тему під рухомою лінією
-    setTimeout(() => {
+    if (!document.startViewTransition) {
         setTheme(nextTheme);
-    }, 80);
+        document.documentElement.classList.remove("to-light", "to-dark");
+        return;
+    }
 
-    // 3. Коли лінія дійшла до краю, прибираємо її без зворотної анімації
-    setTimeout(() => {
-        document.body.classList.add("theme-wipe-reset");
+    document.documentElement.classList.add("theme-changing");
 
-        requestAnimationFrame(() => {
-            document.body.classList.remove(wipeClass);
+    const transition = document.startViewTransition(() => {
+        setTheme(nextTheme);
+    });
 
-            setTimeout(() => {
-                document.body.classList.remove("theme-wipe-reset");
-            }, 30);
-        });
-    }, 650);
+    transition.ready.then(() => {
+        document.documentElement.classList.remove("theme-changing");
+    });
+
+    transition.finished.then(() => {
+        document.documentElement.classList.remove("to-light", "to-dark", "theme-changing");
+    });
 }
 
 const savedTheme = localStorage.getItem("siteTheme") || "dark";
@@ -48,6 +42,6 @@ if (themeToggle) {
 
     themeToggle.addEventListener("change", function () {
         const nextTheme = this.checked ? "light" : "dark";
-        animateThemeChange(nextTheme);
+        changeTheme(nextTheme);
     });
 }

@@ -26,6 +26,8 @@
 
 body {
     min-height: 100vh;
+    background: var(--dark-bg);
+    color: var(--dark-text);
     transition: background-color var(--dur), color var(--dur);
 }
 
@@ -105,6 +107,32 @@ body.theme-light .btn-outline-light:hover {
 }
 
 /* =========================
+   BUTTONS
+========================= */
+
+.btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background: #3157d8;
+    border-color: #3157d8;
+}
+
+body.theme-dark .btn-secondary {
+    background: #374151;
+    border-color: #374151;
+    color: #ffffff;
+}
+
+body.theme-light .btn-secondary {
+    background: #6b7280;
+    border-color: #6b7280;
+    color: #ffffff;
+}
+
+/* =========================
    CARDS
 ========================= */
 
@@ -122,6 +150,15 @@ body.theme-light .filter-card {
     color: var(--light-text);
     border-color: #e5e7eb;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.card,
+.filter-card {
+    transition:
+        background-color var(--dur),
+        color var(--dur),
+        border-color var(--dur),
+        box-shadow var(--dur);
 }
 
 /* =========================
@@ -167,6 +204,18 @@ body.theme-light .form-select:focus {
 }
 
 /* =========================
+   FORM ERRORS
+========================= */
+
+.errorlist {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 12px;
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* =========================
    ALERTS
 ========================= */
 
@@ -180,6 +229,18 @@ body.theme-light .alert-info {
     background: #dbeafe;
     color: #1e3a8a;
     border-color: #93c5fd;
+}
+
+/* =========================
+   TEXT HELPERS
+========================= */
+
+body.theme-dark .text-muted {
+    color: #9ca3af !important;
+}
+
+body.theme-light .text-muted {
+    color: #6b7280 !important;
 }
 
 /* =========================
@@ -227,7 +288,10 @@ body.theme-light .alert-info {
     border: 1px solid;
     border-radius: 12px;
     padding: 12px;
-    transition: background-color var(--dur), color var(--dur), border-color var(--dur);
+    transition:
+        background-color var(--dur),
+        color var(--dur),
+        border-color var(--dur);
 }
 
 body.theme-dark .schedule-cell {
@@ -310,109 +374,117 @@ body.theme-light .day-cell {
 }
 
 .theme-toggle {
-    border-radius: 0.75em;
-    cursor: pointer;
     width: 3em;
     height: 1.5em;
+    border-radius: 999px;
+    cursor: pointer;
     position: relative;
-    overflow: hidden;
+
     appearance: none;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    outline: transparent;
-    transition: background-color var(--dur), color var(--dur);
+    outline: none;
+
+    transition:
+        background-color 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
-/* Темна тема: світлий корпус, чорний кружок */
+/* Темна тема: світлий корпус */
 body.theme-dark .theme-toggle {
     background: #e5e7eb;
-    color: #e5e7eb;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 
-/* Світла тема: темний корпус, білий кружок */
+/* Світла тема: темний корпус */
 body.theme-light .theme-toggle {
     background: #111827;
-    color: #111827;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
-.theme-toggle::before,
-.theme-toggle::after {
-    border-radius: 50%;
+/* Сам кружок */
+.theme-toggle::before {
     content: "";
-    display: block;
     position: absolute;
     top: 0.25em;
     left: 0.25em;
+
     width: 1em;
     height: 1em;
-    transition: transform var(--dur), background-color var(--dur);
+    border-radius: 50%;
+
+    transition:
+        transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
-/* Кружок у темній темі */
-body.theme-dark .theme-toggle::before,
-body.theme-dark .theme-toggle::after {
+/* Чорний кружок у темній темі */
+body.theme-dark .theme-toggle::before {
     background: #050505;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 }
 
-/* Кружок у світлій темі */
-body.theme-light .theme-toggle::before,
-body.theme-light .theme-toggle::after {
+/* Білий кружок у світлій темі */
+body.theme-light .theme-toggle::before {
     background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
-.theme-toggle::before,
-.theme-toggle:checked::after {
-    transition-delay: 0s;
-}
-
-.theme-toggle:checked::before,
-.theme-toggle::after {
-    transition-delay: calc(var(--dur) * 0.75);
-    transition-timing-function: cubic-bezier(0.3, 1.6, 0.5, 0.7);
-}
-
-.theme-toggle::before {
-    transform: translateX(-1.5em);
-}
-
+/* Коли checkbox увімкнений — кружок плавно їде вправо */
 .theme-toggle:checked::before {
     transform: translateX(1.5em);
 }
 
-.theme-toggle:checked::after {
-    transform: translateX(3em);
+/* При наведенні трохи підсвічує */
+.theme-toggle:hover {
+    box-shadow: 0 0 0 3px rgba(65, 105, 245, 0.25);
 }
 
+/* При фокусі з клавіатури */
+.theme-toggle:focus-visible {
+    box-shadow: 0 0 0 4px rgba(65, 105, 245, 0.35);
+}
 /* =========================
-   VIEW TRANSITION THEME WIPE
-   Працює нормально у Chrome/Edge.
-   У Firefox тема просто перемкнеться без wipe.
+   REAL SPLIT THEME TRANSITION
+   За лінією вже нова тема, перед лінією стара.
+   Працює нормально у Chrome / Edge.
 ========================= */
+
+::view-transition-group(root) {
+    animation-duration: 0.75s;
+    animation-timing-function: ease-in-out;
+}
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    animation-duration: 0.65s;
+    animation-duration: 0.75s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
+    mix-blend-mode: normal;
 }
 
-/* Коли йдемо у світлу тему: нова тема відкривається зліва направо */
-body.to-light::view-transition-new(root) {
-    animation-name: reveal-light;
-}
-
-/* Коли йдемо у темну тему: нова тема відкривається справа наліво */
-body.to-dark::view-transition-new(root) {
-    animation-name: reveal-dark;
-}
-
-/* Стара тема не анімується, вона просто залишається під новою */
-body.to-light::view-transition-old(root),
-body.to-dark::view-transition-old(root) {
+/* Прибирає стандартний fade старої сторінки */
+::view-transition-old(root) {
     animation: none;
+    z-index: 1;
 }
 
-@keyframes reveal-light {
+::view-transition-new(root) {
+    z-index: 2;
+}
+
+/* Нова світла тема відкривається зліва направо */
+html.to-light::view-transition-new(root) {
+    animation-name: wipe-light;
+}
+
+/* Нова темна тема відкривається справа наліво */
+html.to-dark::view-transition-new(root) {
+    animation-name: wipe-dark;
+}
+
+@keyframes wipe-light {
     from {
         clip-path: inset(0 100% 0 0);
     }
@@ -422,13 +494,66 @@ body.to-dark::view-transition-old(root) {
     }
 }
 
-@keyframes reveal-dark {
+@keyframes wipe-dark {
     from {
         clip-path: inset(0 0 0 100%);
     }
 
     to {
         clip-path: inset(0 0 0 0);
+    }
+}
+
+/* Вимикає звичайні CSS transitions під час створення snapshot */
+html.theme-changing *,
+html.theme-changing *::before,
+html.theme-changing *::after {
+    transition: none !important;
+}
+
+/* Рухома лінія */
+html::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--accent);
+    box-shadow: 0 0 18px rgba(65, 105, 245, 0.9);
+    z-index: 999999;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Лінія рухається вправо */
+html.to-light::after {
+    opacity: 1;
+    animation: line-light 0.75s ease-in-out forwards;
+}
+
+/* Лінія рухається вліво */
+html.to-dark::after {
+    opacity: 1;
+    animation: line-dark 0.75s ease-in-out forwards;
+}
+
+@keyframes line-light {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes line-dark {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 0;
     }
 }
 
@@ -464,4 +589,122 @@ body.to-dark::view-transition-old(root) {
     .date-range {
         font-size: 16px;
     }
+}
+/* =========================
+   HABIT CARDS
+========================= */
+
+.habit-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    margin-bottom: 22px;
+    padding: 1px;
+    background: linear-gradient(135deg, #4169f5, #8b5cf6, #06b6d4);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.habit-card-content {
+    position: relative;
+    z-index: 2;
+    border-radius: 17px;
+    padding: 22px;
+    min-height: 160px;
+}
+
+body.theme-dark .habit-card-content {
+    background:
+        radial-gradient(circle at top right, rgba(65, 105, 245, 0.22), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.18), transparent 35%),
+        #050505;
+    color: #f1f5f9;
+}
+
+body.theme-light .habit-card-content {
+    background:
+        radial-gradient(circle at top right, rgba(65, 105, 245, 0.16), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.12), transparent 35%),
+        #ffffff;
+    color: #111827;
+}
+
+.habit-card-glow {
+    position: absolute;
+    inset: -40%;
+    background: conic-gradient(
+        from 180deg,
+        transparent,
+        rgba(65, 105, 245, 0.7),
+        transparent,
+        rgba(139, 92, 246, 0.7),
+        transparent
+    );
+    opacity: 0.22;
+    animation: habitGlow 8s linear infinite;
+}
+
+@keyframes habitGlow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.habit-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.habit-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.habit-description {
+    margin: 0;
+    font-size: 16px;
+}
+
+.habit-streak-badge {
+    min-width: 70px;
+    text-align: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    background: rgba(65, 105, 245, 0.18);
+    border: 1px solid rgba(65, 105, 245, 0.45);
+}
+
+body.theme-dark .habit-streak-badge {
+    color: #dbeafe;
+}
+
+body.theme-light .habit-streak-badge {
+    color: #1e3a8a;
+}
+
+.habit-info {
+    margin-top: 20px;
+}
+
+.habit-info p {
+    margin: 4px 0;
+}
+
+.habit-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.habit-card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
 }
