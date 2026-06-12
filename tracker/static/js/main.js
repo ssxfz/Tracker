@@ -1,4 +1,23 @@
 const themeToggle = document.getElementById("dark-mode");
+const useTimerCheckbox = document.getElementById("id_use_timer");
+const timerSettings = document.getElementById("timerSettings");
+
+function updateTimerSettingsVisibility() {
+    if (!useTimerCheckbox || !timerSettings) {
+        return;
+    }
+
+    timerSettings.style.display = useTimerCheckbox.checked
+        ? "block"
+        : "none";
+}
+
+updateTimerSettingsVisibility();
+
+useTimerCheckbox?.addEventListener(
+    "change",
+    updateTimerSettingsVisibility
+);
 
 function setTheme(theme) {
     document.body.classList.remove("theme-dark", "theme-light");

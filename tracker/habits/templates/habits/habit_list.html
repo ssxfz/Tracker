@@ -6,7 +6,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>My Habits</h1>
-    <a href="{% url 'habit_create' %}" class="btn btn-primary">Create habit</a>
+
+    <a href="{% url 'habit_create' %}" class="btn btn-primary">
+        Create habit
+    </a>
 </div>
 
 {% for habit in habits %}
@@ -14,14 +17,19 @@
         <div class="habit-card-glow"></div>
 
         <div class="habit-card-content">
+
             <div class="habit-card-header">
                 <div>
                     <h3>{{ habit.title }}</h3>
 
                     {% if habit.description %}
-                        <p class="habit-description">{{ habit.description }}</p>
+                        <p class="habit-description">
+                            {{ habit.description }}
+                        </p>
                     {% else %}
-                        <p class="habit-description text-muted">No description</p>
+                        <p class="habit-description text-muted">
+                            No description
+                        </p>
                     {% endif %}
                 </div>
 
@@ -31,28 +39,124 @@
             </div>
 
             <div class="habit-info">
-                <p><strong>Streak:</strong> {{ habit.streak }}</p>
-                <p><strong>Last done:</strong> {{ habit.last_done_date }}</p>
+                <p>
+                    <strong>Streak:</strong>
+                    {{ habit.streak }}
+                </p>
+
+                <p>
+                    <strong>Last done:</strong>
+                    {{ habit.last_done_date|default:"Never" }}
+                </p>
             </div>
 
-            <div class="habit-actions">
-                <a href="{% url 'habit_done' habit.id %}" class="btn btn-success btn-sm">
-                    Done today
-                </a>
+            {% if habit.use_timer %}
 
-                <form method="post" action="{% url 'habit_delete' habit.id %}" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Delete
-                    </button>
-                </form>
-            </div>
+                <div
+                    class="habit-timer mt-3"
+                    data-habit-id="{{ habit.id }}"
+                    data-required-seconds="{{ habit.required_minutes|default:1 }}"
+                >
+                    <p class="mb-2">
+                        <strong>Required time:</strong>
+                        {{ habit.required_minutes }} minutes
+                    </p>
+
+                    <div class="timer-display mb-3">
+                        00:00
+                    </div>
+
+                    <div class="habit-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-success btn-sm start-timer-button"
+                            data-start-url="{% url 'habit_timer_start' habit.id %}"
+                        >
+                            Start timer
+                        </button>
+
+                        <form
+                            method="post"
+                            action="{% url 'habit_done' habit.id %}"
+                            class="d-inline"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-sm done-button"
+                                disabled
+                            >
+                                Done today
+                            </button>
+                        </form>
+
+                        <form
+                            method="post"
+                            action="{% url 'habit_delete' habit.id %}"
+                            class="d-inline"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-sm"
+                            >
+                                Delete
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            {% else %}
+
+                <div class="habit-actions">
+
+                    <form
+                        method="post"
+                        action="{% url 'habit_done' habit.id %}"
+                        class="d-inline"
+                    >
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-sm"
+                        >
+                            Done today
+                        </button>
+                    </form>
+
+                    <form
+                        method="post"
+                        action="{% url 'habit_delete' habit.id %}"
+                        class="d-inline"
+                    >
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-sm"
+                        >
+                            Delete
+                        </button>
+                    </form>
+
+                </div>
+
+            {% endif %}
+
         </div>
     </div>
+
 {% empty %}
+
     <div class="alert alert-info">
         You don't have habits yet.
     </div>
+
 {% endfor %}
 
 {% endblock %}
