@@ -11,7 +11,7 @@ from .models import Habit, HabitTimerSession
 from .forms import HabitForm
 
 @login_required
-def habit_timer_started(request, habit_id):
+def habit_timer_start(request, habit_id):
     if request.method != "POST":
         return JsonResponse({"error": "Method not allowed"}, status=405)
 
@@ -77,7 +77,7 @@ def habit_done(request, habit_id):
     if request.method != "POST":
         return redirect("habit_list")
 
-    if habit.last_done_date == date.today():
+    if habit.last_done_date == timezone.localdate():
         return redirect("habit_list")
 
     if habit.use_timer:

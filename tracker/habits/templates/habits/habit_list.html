@@ -20,7 +20,7 @@
 
             <div class="habit-card-header">
                 <div>
-                    <h3>{{ habit.title }}</h3>
+                    <h3 class="{% if habit.is_done_today %}habit-done-title{% endif %}">{{ habit.title }}</h3>
 
                     {% if habit.description %}
                         <p class="habit-description">
@@ -51,11 +51,9 @@
             </div>
 
             {% if habit.use_timer %}
-
                 <div
                     class="habit-timer mt-3"
-                    data-habit-id="{{ habit.id }}"
-                    data-required-seconds="{{ habit.required_minutes|default:1 }}"
+                    data-required-minutes="{{ habit.required_minutes }}"
                 >
                     <p class="mb-2">
                         <strong>Required time:</strong>
@@ -67,13 +65,17 @@
                     </div>
 
                     <div class="habit-actions">
-
                         <button
                             type="button"
                             class="btn btn-success btn-sm start-timer-button"
                             data-start-url="{% url 'habit_timer_start' habit.id %}"
+                            {% if habit.is_done_today %}disabled{% endif %}
                         >
-                            Start timer
+                            {% if habit.is_done_today %}
+                                Completed today
+                            {% else %}
+                                Start timer
+                            {% endif %}
                         </button>
 
                         <form
@@ -88,7 +90,11 @@
                                 class="btn btn-primary btn-sm done-button"
                                 disabled
                             >
-                                Done today
+                                {% if habit.is_done_today %}
+                                    Done
+                                {% else %}
+                                    Done today
+                                {% endif %}
                             </button>
                         </form>
 
@@ -106,10 +112,8 @@
                                 Delete
                             </button>
                         </form>
-
                     </div>
                 </div>
-
             {% else %}
 
                 <div class="habit-actions">
@@ -124,8 +128,13 @@
                         <button
                             type="submit"
                             class="btn btn-success btn-sm"
+                            {% if habit.is_done_today %}disabled{% endif %}
                         >
-                            Done today
+                            {% if habit.is_done_today %}
+                                Done
+                            {% else %}
+                                Done today
+                            {% endif %}
                         </button>
                     </form>
 

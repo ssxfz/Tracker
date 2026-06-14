@@ -6,7 +6,7 @@ urlpatterns = [
     path('create/', views.habit_create, name='habit_create'),
     path(
         "<int:habit_id>/timer/start/",
-        views.habit_timer_started,
+        views.habit_timer_start,
         name="habit_timer_start"
     ),
     path('<int:habit_id>/done/', views.habit_done, name='habit_done'),

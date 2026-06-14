@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Habit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,6 +13,10 @@ class Habit(models.Model):
     streak = models.IntegerField(default=0)
     last_done_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def is_done_today(self):
+        return self.last_done_date == timezone.localdate()
 
     def __str__(self):
         return self.title

@@ -687,3 +687,12 @@ html.to-dark::after {
         font-size: 34px;
     }
 }
+
+.habit-done-title {
+    text-decoration: line-through;
+    opacity: 0.55;
+}
+
+.habit-card:has(.habit-done-title) {
+    opacity: 0.82;
+}
